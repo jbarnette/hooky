@@ -18,7 +18,7 @@ file ".git/hooks/hooky" do |task|
     f.puts "#!/bin/sh"
     f.puts "export HOOK=$0"
     f.puts "export HOOK_ARGS=$@"
-    f.puts "rake hooky"
+    f.puts "rake -s hooky"
   end
 
   sh "chmod +x #{task.name}"

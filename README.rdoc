@@ -2,9 +2,9 @@
 
 * http://github.com/jbarnette/hooky
 
-== Description FIX
+== Description
 
-Hooky lets you write Git repository hooks with Rake.
+FIX: Hooky lets you write Git repository hooks with Rake.
 
 Check the Git docs
 (http://www.kernel.org/pub/software/scm/git/docs/githooks.html) for
@@ -13,7 +13,7 @@ more information on hooks.
 == Examples
 
     # in your Rakefile
-    require "hooky/rake"
+    require "hooky/tasks"
 
     task "hooky:post-checkout" do |_, args|
       if args[:branch]
