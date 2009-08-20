@@ -1,0 +1,8 @@
+.autotest
+CHANGELOG.rdoc
+Manifest.txt
+README.rdoc
+Rakefile
+lib/hooky.rb
+lib/hooky/tasks.rb
+test/test_hooky.rb
