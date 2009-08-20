@@ -51,7 +51,9 @@ end
 
 task "git:post-commit"
 
-task "git:post-merge", [:squash]
+task "git:post-merge", [:squash] do |_, args|
+  args.to_hash[:squash] = args[:squash] == "1"
+end
 
 task "git:pre-applypatch"
 

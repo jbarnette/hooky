@@ -1,32 +1,78 @@
 = Hooky
 
 * http://github.com/jbarnette/hooky
+* http://www.kernel.org/pub/software/scm/git/docs/githooks.html
 
 == Description
 
-FIX: Hooky lets you write Git repository hooks with Rake.
+Hooky lets you write Git repository hooks with Rake. If you already
+have a Rakefile, write your hooks in Ruby! Hooky provides Tasks for
+most Git hooks, and lets you easily add behavior.
 
-Check the Git docs
-(http://www.kernel.org/pub/software/scm/git/docs/githooks.html) for
-more information on hooks.
+Git hooks are powerful: Check the Git documentation (linked above) for
+detailed descriptions and lifecycle order.
 
 == Examples
 
     # in your Rakefile
     require "hooky/tasks"
 
-    task "hooky:post-checkout" do |_, args|
-      if args[:branch]
-        puts "you just switched branches!"
-      end
+    task "git:applypatch-msg", [:file] do |_, args|
+      puts "Proposed git-am commit msg: #{IO.read(args[:file])}"
     end
 
-    # in the shell, once (but it's safe to do twice)
-    $ rake hooky:install
+    task "git:commit-msg", [:file] do |_, args|
+      puts "Proposed commit msg: #{IO.read(args[:file])}"
+    end
+
+    task "git:post-applypatch" do
+      puts "Patch applied by git-am!"
+    end
+
+    task "git:post-checkout", [:old, :new, :branch] do |_, args|
+      puts "you just switched branches!" if args[:branch]
+      puts "old SHA: #{args[:old]}, new SHA: #{args[:new]}"
+    end
+
+    task "git:post-commit"
+      puts "You made a commit!"
+    end
+
+    task "git:post-merge", [:squash] do |_, args|
+      puts "You just did a merge!"
+      puts "It was a squash." if args[:squash]
+    end
+
+    task "git:pre-applypatch" do
+      puts "git-am is about to commit a patch!"
+    end
+
+    task "git:pre-auto-gc" do
+      puts "git gc --auto is about to run!"
+    end
+
+    task "git:pre-commit" do
+      puts "You're about to commit!"
+    end
+
+    task "git:pre-rebase" do
+      puts "You're about to rebase!"
+    end
+
+    task "git:prepare-commit-msg", [:file, :source, :sha] do |_, args|
+      puts "Building a commit message!"
+    end
 
 == Installation
 
     $ gem install hooky
+
+    # in your project
+    $ rake hooky:install
+
+<tt>hooky:install</tt> symlinks all hooks to
+<tt>.git/hooks/hooky</tt>, a stub that delegates to your Rakefile, but
+it won't overwrite any hooks you've already created.
 
 == License
 
