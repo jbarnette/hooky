@@ -6,7 +6,7 @@
 == Description
 
 Hooky lets you write Git repository hooks with Rake. If you already
-have a Rakefile, write your hooks in Ruby! Hooky provides Tasks for
+have a Rakefile, write your hooks in Ruby! Hooky provides tasks for
 most Git hooks, and lets you easily add behavior.
 
 Git hooks are powerful: Check the Git documentation (linked above) for
